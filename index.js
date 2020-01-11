@@ -13,12 +13,12 @@ const POST_OPTIONS = {
   port: 443,
 };
 
-exports.handler = async (event, context) => {
+exports.handler = (event, context) => {
   const doc = new GoogleSpreadsheet(process.env.SHEET_KEY);
   doc.useServiceAccountAuth(
     {
       client_email: process.env.CLIENT_EMAIL,
-      private_key: process.env.PRIVATE_KEY,
+      private_key: process.env.PRIVATE_KEY.replace(/\\n/g, '\n'),
     },
     err => {
       if (err) return console.log(err);
@@ -52,12 +52,12 @@ exports.handler = async (event, context) => {
             const req = https.request(POST_OPTIONS, res => {
               res.setEncoding('utf8');
               res.on('data', data => context.succeed('Message Sent: ' + data));
-              res.on('error', e => {
-                context.fail(`Failed ${e}`);
-              });
-              res.write(message);
-              res.end();
             });
+            req.on('error', e => {
+              context.fail(`Failed ${e}`);
+            });
+            req.write(message);
+            req.end();
           }
           return;
         },

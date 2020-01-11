@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\"",
-    "package": "zip -9 -r dist.zip index.js node_modules"
+    "package": "rm -f ./dist.zip && rm -rf ./dist && zip -9 -r dist.zip index.js node_modules"
   },
   "keywords": [
     "node",
