@@ -4,7 +4,8 @@
   "description": "Send birthday messages to Slack with Google Sheets and Lambda",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\""
+    "test": "echo \"Error: no test specified\"",
+    "package": "zip -9 -r dist.zip index.js node_modules"
   },
   "keywords": [
     "node",
@@ -17,5 +18,10 @@
     "url": "git+https://github.com/joshmeads/birthday-bot-slack.git"
   },
   "author": "Josh Meads",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "google-spreadsheet": "^2.0.8",
+    "https": "^1.0.0"
+  }
 }
