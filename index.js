@@ -4,7 +4,7 @@ const GoogleSpreadsheet = require('google-spreadsheet');
 
 const date = new Date();
 const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-const formattedDate = `${months[date.getMonth()]}${date.getDay()}`;
+const formattedDate = `${months[date.getMonth()]}${date.getDate()}`;
 
 const POST_OPTIONS = {
   hostname: 'hooks.slack.com',
@@ -38,7 +38,7 @@ exports.handler = (event, context) => {
               cake: x.favouritecake,
               active: x.active && x.active.toUpperCase() === 'TRUE',
             }));
-          if (info) {
+          if (info && info.length > 0) {
             const names = info.map(({ name }) => name).join(' & ');
             const cakes = info.map(({ cake }) => cake).join(' & ');
             const message = JSON.stringify({
